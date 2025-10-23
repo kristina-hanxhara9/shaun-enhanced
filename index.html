@@ -1,2010 +1,2413 @@
 <!DOCTYPE html>
-
-<html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Shaun's Plumbing & Drainage | YOUR LOCAL PLUMBER & DRAINAGE COMPANY</title>
-
-<link href="[https://unpkg.com/aos@2.3.1/dist/aos.css](https://unpkg.com/aos@2.3.1/dist/aos.css)" rel="stylesheet">
-
-<style>
-    :root {
-        --primary: #ff6600;
-        --primary-dark: #d65600;
-        --primary-light: #ff8533;
-        --secondary: #003366;
-        --secondary-light: #004d99;
-        --light: #f8f9fa;
-        --white: #ffffff;
-        --dark: #1a1a1a;
-        --gray: #6c757d;
-        --gradient: linear-gradient(135deg, #ff6600 0%, #d65600 100%);
-        --gradient-secondary: linear-gradient(135deg, #003366 0%, #004d99 100%);
-        --shadow: 0 10px 30px rgba(0,0,0,0.1);
-        --shadow-hover: 0 20px 50px rgba(0,0,0,0.2);
-        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    /* Smooth Scrolling */
-    html {
-        scroll-behavior: smooth;
-    }
-    
-    body {
-        font-family: 'Oswald', sans-serif;
-        background-color: var(--light);
-        color: var(--dark);
-        line-height: 1.6;
-        overflow-x: hidden;
-    }
-    
-    /* Loading Screen */
-    .loader-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--white);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        transition: opacity 0.5s, visibility 0.5s;
-    }
-    
-    .loader-wrapper.fade-out {
-        opacity: 0;
-        visibility: hidden;
-    }
-    
-    .loader {
-        width: 50px;
-        height: 50px;
-        border: 5px solid var(--light);
-        border-top-color: var(--primary);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-    
-    .container {
-        width: 90%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 15px;
-    }
-    
-    /* Enhanced Buttons */
-    .btn {
-        display: inline-block;
-        background: var(--gradient);
-        color: var(--white);
-        text-decoration: none;
-        padding: 14px 32px;
-        border-radius: 50px;
-        text-transform: uppercase;
-        font-weight: 600;
-        font-size: 16px;
-        letter-spacing: 1px;
-        transition: var(--transition);
-        border: 2px solid transparent;
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
-    }
-    
-    .btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.2);
-        transition: left 0.5s;
-    }
-    
-    .btn:hover::before {
-        left: 100%;
-    }
-    
-    .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(255, 102, 0, 0.4);
-    }
-    
-    .btn-call {
-        background: var(--gradient-secondary);
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        animation: pulse-shadow 2s infinite;
-    }
-    
-    @keyframes pulse-shadow {
-        0%, 100% {
-            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.3);
-        }
-        50% {
-            box-shadow: 0 4px 25px rgba(0, 51, 102, 0.5);
-        }
-    }
-    
-    .btn-outline {
-        background: transparent;
-        color: var(--primary);
-        border: 2px solid var(--primary);
-        box-shadow: none;
-    }
-    
-    .btn-outline:hover {
-        background: var(--gradient);
-        color: var(--white);
-        border-color: transparent;
-        box-shadow: 0 8px 25px rgba(255, 102, 0, 0.4);
-    }
-    
-    /* Enhanced Header */
-    header {
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        position: fixed;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        transition: var(--transition);
-    }
-    
-    header.scrolled {
-        background: rgba(255, 255, 255, 1);
-        box-shadow: 0 5px 30px rgba(0,0,0,0.15);
-    }
-    
-    .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 0;
-        transition: padding 0.3s;
-    }
-    
-    header.scrolled .header-container {
-        padding: 15px 0;
-    }
-    
-    .logo {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        transition: transform 0.3s;
-    }
-    
-    .logo:hover {
-        transform: scale(1.05);
-    }
-    
-    .logo img {
-        height: 60px;
-        margin-right: 15px;
-        border-radius: 10px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-    
-    .logo-text {
-        font-size: 28px;
-        font-weight: 700;
-        color: var(--secondary);
-        text-transform: uppercase;
-    }
-    
-    .logo-text span {
-        color: var(--primary);
-        animation: color-pulse 3s infinite;
-    }
-    
-    @keyframes color-pulse {
-        0%, 100% { color: var(--primary); }
-        50% { color: var(--primary-light); }
-    }
-    
-    .nav-links {
-        display: flex;
-        list-style: none;
-        align-items: center;
-    }
-    
-    .nav-links li {
-        margin-left: 35px;
-        position: relative;
-    }
-    
-    .nav-links a {
-        color: var(--dark);
-        text-decoration: none;
-        font-size: 17px;
-        font-weight: 500;
-        transition: var(--transition);
-        text-transform: uppercase;
-        position: relative;
-    }
-    
-    .nav-links a::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 0;
-        width: 0;
-        height: 3px;
-        background: var(--gradient);
-        transition: width 0.3s;
-    }
-    
-    .nav-links a:hover::after {
-        width: 100%;
-    }
-    
-    .nav-links a:hover {
-        color: var(--primary);
-    }
-    
-    .mobile-toggle {
-        display: none;
-        background: none;
-        border: none;
-        font-size: 28px;
-        color: var(--dark);
-        cursor: pointer;
-        transition: transform 0.3s;
-    }
-    
-    .mobile-toggle:hover {
-        transform: rotate(90deg);
-    }
-    
-    /* Enhanced Hero Section */
-    .hero {
-        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                    url('./images/shaun-hero.png') center/cover no-repeat;
-        padding: 180px 0 120px;
-        text-align: center;
-        color: var(--white);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,102,0,0.1), transparent);
-        animation: sweep 8s linear infinite;
-    }
-    
-    @keyframes sweep {
-        to { left: 100%; }
-    }
-    
-    .hero h1 {
-        font-size: 62px;
-        font-weight: 700;
-        margin-bottom: 25px;
-        line-height: 1.1;
-        text-transform: uppercase;
-        animation: slideDown 1s ease;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-    
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-50px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .hero h1 span {
-        color: var(--primary);
-        text-shadow: 2px 2px 8px rgba(255,102,0,0.3);
-    }
-    
-    .hero p {
-        font-size: 24px;
-        max-width: 800px;
-        margin: 0 auto 40px;
-        font-weight: 300;
-        animation: slideUp 1s ease 0.3s backwards;
-    }
-    
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .hero-discount {
-        font-size: 32px;
-        font-weight: 600;
-        color: var(--primary);
-        margin-bottom: 35px;
-        display: block;
-        animation: pulse 2s infinite;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-    
-    @keyframes pulse {
-        0%, 100% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.05);
-        }
-    }
-    
-    .hero-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        animation: fadeIn 1s ease 0.6s backwards;
-    }
-    
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    
-    /* Emergency Banner */
-    .emergency-banner {
-        background: var(--gradient);
-        color: var(--white);
-        padding: 15px 0;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .emergency-banner::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        animation: shimmer 3s linear infinite;
-    }
-    
-    @keyframes shimmer {
-        to { left: 100%; }
-    }
-    
-    .emergency-banner-content {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 15px;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .emergency-banner i {
-        font-size: 24px;
-        animation: blink 1s infinite;
-    }
-    
-    @keyframes blink {
-        0%, 50%, 100% { opacity: 1; }
-        25%, 75% { opacity: 0.5; }
-    }
-    
-    .emergency-banner p {
-        font-size: 18px;
-        font-weight: 600;
-        letter-spacing: 1px;
-    }
-    
-    .emergency-banner a {
-        color: var(--white);
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 20px;
-        transition: transform 0.3s;
-        display: inline-block;
-    }
-    
-    .emergency-banner a:hover {
-        transform: scale(1.1);
-    }
-    
-    /* Enhanced Services Section */
-    .services {
-        padding: 100px 0;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        position: relative;
-    }
-    
-    .section-header {
-        text-align: center;
-        margin-bottom: 70px;
-    }
-    
-    .section-header h2 {
-        font-size: 48px;
-        color: var(--secondary);
-        margin-bottom: 20px;
-        text-transform: uppercase;
-        font-weight: 700;
-        position: relative;
-        display: inline-block;
-    }
-    
-    .section-header h2::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 4px;
-        background: var(--gradient);
-        border-radius: 2px;
-    }
-    
-    .section-header h2 span {
-        color: var(--primary);
-    }
-    
-    .section-header p {
-        font-size: 20px;
-        color: var(--gray);
-        max-width: 700px;
-        margin: 20px auto 0;
-    }
-    
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 35px;
-    }
-    
-    .service-card {
-        text-align: center;
-        background: var(--white);
-        padding: 45px 35px;
-        border-radius: 15px;
-        transition: var(--transition);
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-        cursor: pointer;
-    }
-    
-    .service-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 5px;
-        background: var(--gradient);
-        transform: scaleX(0);
-        transition: transform 0.3s;
-        transform-origin: left;
-    }
-    
-    .service-card:hover::before {
-        transform: scaleX(1);
-    }
-    
-    .service-card::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--gradient);
-        opacity: 0;
-        transition: opacity 0.3s;
-        z-index: -1;
-    }
-    
-    .service-card:hover::after {
-        opacity: 0.05;
-    }
-    
-    .service-card:hover {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: var(--shadow-hover);
-    }
-    
-    .service-card i {
-        font-size: 64px;
-        color: var(--primary);
-        margin-bottom: 30px;
-        transition: var(--transition);
-        display: inline-block;
-    }
-    
-    .service-card:hover i {
-        transform: rotateY(360deg);
-        color: var(--primary-dark);
-    }
-    
-    .service-card h3 {
-        font-size: 26px;
-        margin-bottom: 18px;
-        color: var(--secondary);
-        font-weight: 600;
-        transition: color 0.3s;
-    }
-    
-    .service-card:hover h3 {
-        color: var(--primary);
-    }
-    
-    .service-card p {
-        color: var(--gray);
-        margin-bottom: 25px;
-        line-height: 1.7;
-    }
-    
-    /* Enhanced Why Choose Us */
-    .why-us {
-        padding: 100px 0;
-        background: var(--gradient-secondary);
-        color: var(--white);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .why-us::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-        animation: rotate 30s linear infinite;
-    }
-    
-    @keyframes rotate {
-        to { transform: rotate(360deg); }
-    }
-    
-    .why-us .section-header h2 {
-        color: var(--white);
-    }
-    
-    .why-us .section-header p {
-        color: rgba(255,255,255,0.8);
-    }
-    
-    .why-us-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 35px;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .why-us-card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        padding: 35px;
-        border-radius: 15px;
-        transition: var(--transition);
-        border: 1px solid rgba(255,255,255,0.1);
-        cursor: pointer;
-    }
-    
-    .why-us-card:hover {
-        background: rgba(255, 102, 0, 0.9);
-        transform: translateY(-10px) scale(1.05);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    }
-    
-    .why-us-card i {
-        font-size: 48px;
-        color: var(--primary);
-        margin-bottom: 25px;
-        transition: var(--transition);
-        display: inline-block;
-    }
-    
-    .why-us-card:hover i {
-        color: var(--white);
-        transform: scale(1.2);
-    }
-    
-    .why-us-card h3 {
-        font-size: 24px;
-        margin-bottom: 18px;
-        font-weight: 600;
-    }
-    
-    .why-us-card p {
-        color: rgba(255,255,255,0.8);
-        line-height: 1.7;
-        transition: color 0.3s;
-    }
-    
-    .why-us-card:hover p {
-        color: var(--white);
-    }
-    
-    /* Enhanced Call to Action */
-    .cta {
-        text-align: center;
-        padding: 100px 0;
-        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                    url('[https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80](https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80)') center/cover no-repeat fixed;
-        color: var(--white);
-        position: relative;
-    }
-    
-    .cta::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
-    }
-    
-    .cta-content {
-        position: relative;
-        z-index: 1;
-    }
-    
-    .cta h2 {
-        font-size: 48px;
-        margin-bottom: 25px;
-        text-transform: uppercase;
-        animation: fadeInScale 1s ease;
-    }
-    
-    @keyframes fadeInScale {
-        from {
-            opacity: 0;
-            transform: scale(0.8);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-    
-    .cta p {
-        font-size: 22px;
-        max-width: 700px;
-        margin: 0 auto 35px;
-        opacity: 0.9;
-    }
-    
-    .cta .btn {
-        margin: 0 10px;
-        font-size: 18px;
-        padding: 16px 40px;
-    }
-    
-    /* Enhanced Testimonials */
-    .testimonials {
-        padding: 100px 0;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        position: relative;
-    }
-    
-    .testimonials .section-header h2 {
-        color: var(--white);
-    }
-    
-    .testimonials .section-header p {
-        color: rgba(255,255,255,0.9);
-    }
-    
-    .testimonial-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 35px;
-    }
-    
-    .testimonial-card {
-        background: var(--white);
-        padding: 40px;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        position: relative;
-        transition: var(--transition);
-        overflow: hidden;
-    }
-    
-    .testimonial-card::before {
-        content: '\201C';
-        font-size: 120px;
-        position: absolute;
-        top: -20px;
-        left: 20px;
-        color: var(--primary);
-        opacity: 0.1;
-        font-family: Georgia, serif;
-    }
-    
-    .testimonial-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
-    
-    .testimonial-text {
-        font-style: italic;
-        margin-bottom: 25px;
-        position: relative;
-        z-index: 1;
-        font-size: 17px;
-        line-height: 1.8;
-        color: var(--gray);
-    }
-    
-    .testimonial-author {
-        font-weight: 600;
-        color: var(--secondary);
-        font-size: 18px;
-    }
-    
-    .testimonial-stars {
-        color: #ffc107;
-        margin-bottom: 20px;
-        font-size: 20px;
-    }
-    
-    .testimonial-stars i {
-        margin-right: 3px;
-        transition: transform 0.3s;
-    }
-    
-    .testimonial-card:hover .testimonial-stars i {
-        transform: scale(1.2);
-    }
-    
-    .testimonial-stars i:nth-child(1) { animation-delay: 0.1s; }
-    .testimonial-stars i:nth-child(2) { animation-delay: 0.2s; }
-    .testimonial-stars i:nth-child(3) { animation-delay: 0.3s; }
-    .testimonial-stars i:nth-child(4) { animation-delay: 0.4s; }
-    .testimonial-stars i:nth-child(5) { animation-delay: 0.5s; }
-    
-    /* Enhanced Contact Section */
-    .contact {
-        padding: 100px 0;
-        background: var(--white);
-    }
-    
-    .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 60px;
-    }
-    
-    .contact-info h3 {
-        font-size: 32px;
-        margin-bottom: 35px;
-        color: var(--secondary);
-        text-transform: uppercase;
-        position: relative;
-        padding-bottom: 15px;
-    }
-    
-    .contact-info h3::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 60px;
-        height: 3px;
-        background: var(--gradient);
-    }
-    
-    .contact-item {
-        display: flex;
-        margin-bottom: 30px;
-        transition: transform 0.3s;
-    }
-    
-    .contact-item:hover {
-        transform: translateX(10px);
-    }
-    
-    .contact-icon {
-        color: var(--primary);
-        font-size: 28px;
-        margin-right: 25px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50px;
-        height: 50px;
-        background: rgba(255,102,0,0.1);
-        border-radius: 10px;
-        transition: var(--transition);
-    }
-    
-    .contact-item:hover .contact-icon {
-        background: var(--gradient);
-        color: var(--white);
-        transform: scale(1.1);
-    }
-    
-    .contact-details h4 {
-        font-size: 20px;
-        margin-bottom: 8px;
-        color: var(--secondary);
-    }
-    
-    .contact-details p, .contact-details a {
-        color: var(--gray);
-        text-decoration: none;
-        transition: color 0.3s;
-        font-size: 17px;
-    }
-    
-    .contact-details a:hover {
-        color: var(--primary);
-    }
-    
-    .contact-form {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        padding: 50px;
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    }
-    
-    .contact-form h3 {
-        font-size: 32px;
-        margin-bottom: 35px;
-        color: var(--secondary);
-        text-transform: uppercase;
-        text-align: center;
-    }
-    
-    .form-group {
-        margin-bottom: 25px;
-    }
-    
-    .form-control {
-        width: 100%;
-        padding: 15px 20px;
-        border: 2px solid transparent;
-        border-radius: 10px;
-        font-size: 16px;
-        background: var(--white);
-        transition: var(--transition);
-        font-family: 'Oswald', sans-serif;
-    }
-    
-    .form-control:focus {
-        border-color: var(--primary);
-        outline: none;
-        box-shadow: 0 0 0 4px rgba(255,102,0,0.1);
-        transform: translateY(-2px);
-    }
-    
-    textarea.form-control {
-        height: 150px;
-        resize: vertical;
-    }
-    
-    .btn-submit {
-        background: var(--gradient);
-        color: var(--white);
-        border: none;
-        border-radius: 50px;
-        padding: 16px 40px;
-        font-size: 18px;
-        text-transform: uppercase;
-        font-weight: 600;
-        cursor: pointer;
-        transition: var(--transition);
-        width: 100%;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .btn-submit::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: rgba(255,255,255,0.2);
-        transition: left 0.5s;
-    }
-    
-    .btn-submit:hover::before {
-        left: 100%;
-    }
-    
-    .btn-submit:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 30px rgba(255,102,0,0.4);
-    }
-    
-    /* Enhanced Footer */
-    footer {
-        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-        color: var(--white);
-        padding-top: 80px;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    footer::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.03" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-        background-size: cover;
-    }
-    
-    .footer-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 40px;
-        padding-bottom: 60px;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .footer-widget h4 {
-        font-size: 24px;
-        margin-bottom: 30px;
-        text-transform: uppercase;
-        position: relative;
-        padding-bottom: 15px;
-    }
-    
-    .footer-widget h4::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 50px;
-        height: 3px;
-        background: var(--gradient);
-    }
-    
-    .footer-widget p {
-        color: rgba(255,255,255,0.8);
-        margin-bottom: 25px;
-        line-height: 1.8;
-    }
-    
-    .footer-links {
-        list-style: none;
-    }
-    
-    .footer-links li {
-        margin-bottom: 18px;
-    }
-    
-    .footer-links a {
-        color: rgba(255,255,255,0.8);
-        text-decoration: none;
-        transition: var(--transition);
-        display: flex;
-        align-items: center;
-    }
-    
-    .footer-links a i {
-        margin-right: 12px;
-        color: var(--primary);
-        transition: transform 0.3s;
-    }
-    
-    .footer-links a:hover {
-        color: var(--primary);
-        transform: translateX(5px);
-    }
-    
-    .footer-links a:hover i {
-        transform: scale(1.2);
-    }
-    
-    .footer-contact p {
-        display: flex;
-        align-items: center;
-        margin-bottom: 18px;
-        color: rgba(255,255,255,0.8);
-    }
-    
-    .footer-contact i {
-        width: 35px;
-        color: var(--primary);
-        margin-right: 15px;
-        font-size: 18px;
-    }
-    
-    .footer-social {
-        display: flex;
-        gap: 15px;
-        margin-top: 30px;
-    }
-    
-    .footer-social a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.1);
-        backdrop-filter: blur(10px);
-        color: var(--white);
-        transition: var(--transition);
-        border: 2px solid rgba(255,255,255,0.2);
-    }
-    
-    .footer-social a:hover {
-        background: var(--gradient);
-        border-color: transparent;
-        transform: translateY(-5px) rotate(360deg);
-    }
-    
-    .footer-bottom {
-        text-align: center;
-        padding: 25px 0;
-        background: rgba(0,0,0,0.2);
-        color: rgba(255,255,255,0.6);
-        font-size: 15px;
-        position: relative;
-        z-index: 1;
-    }
-    
-    /* Scroll to Top Button */
-    .scroll-top {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        background: var(--gradient);
-        color: var(--white);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
-        transition: var(--transition);
-        box-shadow: 0 5px 20px rgba(255,102,0,0.3);
-        z-index: 999;
-    }
-    
-    .scroll-top.show {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .scroll-top:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(255,102,0,0.5);
-    }
-    
-    /* Responsive Design */
-    @media screen and (max-width: 992px) {
-        .nav-links {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 70%;
-            height: 100vh;
-            background: var(--white);
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            box-shadow: -5px 0 20px rgba(0,0,0,0.1);
-            transition: right 0.3s;
-            z-index: 999;
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaun's Plumbing & Drainage | YOUR LOCAL PLUMBER & DRAINAGE COMPANY</title>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #ff6600;
+            --primary-dark: #d65600;
+            --primary-light: #ff8533;
+            --secondary: #003366;
+            --secondary-light: #004d99;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --dark: #1a1a1a;
+            --gray: #6c757d;
+            --gradient: linear-gradient(135deg, #ff6600 0%, #d65600 100%);
+            --gradient-secondary: linear-gradient(135deg, #003366 0%, #004d99 100%);
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 20px 50px rgba(0,0,0,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .nav-links.active {
-            right: 0;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Oswald', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Loading Screen */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .loader-wrapper.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--light);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Enhanced Buttons */
+        .btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--white);
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 102, 0, 0.4);
+        }
+        
+        .btn-call {
+            background: var(--gradient-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            animation: pulse-shadow 2s infinite;
+        }
+        
+        @keyframes pulse-shadow {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(0, 51, 102, 0.3);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(0, 51, 102, 0.5);
+            }
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background: var(--gradient);
+            color: var(--white);
+            border-color: transparent;
+            box-shadow: 0 8px 25px rgba(255, 102, 0, 0.4);
+        }
+        
+        /* Enhanced Header */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.15);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            transition: padding 0.3s;
+        }
+        
+        header.scrolled .header-container {
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo img {
+            height: 60px;
+            margin-right: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+        }
+        
+        .logo-text span {
+            color: var(--primary);
+            animation: color-pulse 3s infinite;
+        }
+        
+        @keyframes color-pulse {
+            0%, 100% { color: var(--primary); }
+            50% { color: var(--primary-light); }
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
         }
         
         .nav-links li {
-            margin: 20px 0;
-            text-align: center;
+            margin-left: 35px;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+            transition: var(--transition);
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
         }
         
         .mobile-toggle {
-            display: block;
-            z-index: 1000;
+            display: none;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: var(--dark);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .mobile-toggle:hover {
+            transform: rotate(90deg);
+        }
+        
+        /* Enhanced Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+            padding: 180px 0 120px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,102,0,0.1), transparent);
+            animation: sweep 8s linear infinite;
+        }
+        
+        @keyframes sweep {
+            to { left: 100%; }
         }
         
         .hero h1 {
-            font-size: 42px;
+            font-size: 62px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            animation: slideDown 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 span {
+            color: var(--primary);
+            text-shadow: 2px 2px 8px rgba(255,102,0,0.3);
         }
         
         .hero p {
-            font-size: 20px;
+            font-size: 24px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+            animation: slideUp 1s ease 0.3s backwards;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-discount {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 35px;
+            display: block;
+            animation: pulse 2s infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
         }
         
         .hero-buttons {
-            flex-direction: column;
-            align-items: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            animation: fadeIn 1s ease 0.6s backwards;
         }
         
-        .hero-buttons .btn {
-            width: 250px;
-            margin-bottom: 15px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
-        .section-header h2 {
-            font-size: 36px;
-        }
-        
-        .contact-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-    
-    @media screen and (max-width: 768px) {
-        .hero h1 {
-            font-size: 32px;
-        }
-        
-        .hero-discount {
-            font-size: 24px;
-        }
-        
-        .section-header h2 {
-            font-size: 30px;
-        }
-        
-        .services-grid,
-        .why-us-grid,
-        .testimonial-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .footer-grid {
-            grid-template-columns: 1fr;
+        /* Emergency Banner */
+        .emergency-banner {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 15px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         
-        .footer-widget h4::after {
+        .emergency-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            to { left: 100%; }
+        }
+        
+        .emergency-banner-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .emergency-banner i {
+            font-size: 24px;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
+        
+        .emergency-banner p {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .emergency-banner a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 20px;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+        
+        .emergency-banner a:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Enhanced Services Section */
+        .services {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-header h2 {
+            font-size: 48px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
         }
         
-        .footer-social {
-            justify-content: center;
+        .section-header h2 span {
+            color: var(--primary);
         }
         
-        .contact-form {
-            padding: 30px;
-        }
-    }
-    
-    @media screen and (max-width: 480px) {
-        .logo-text {
+        .section-header p {
             font-size: 20px;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 20px auto 0;
         }
         
-        .hero {
-            padding: 140px 0 80px;
-        }
-        
-        .hero h1 {
-            font-size: 28px;
-        }
-        
-        .hero p {
-            font-size: 18px;
-        }
-        
-        .hero-discount {
-            font-size: 20px;
-        }
-        
-        .btn {
-            padding: 12px 25px;
-            font-size: 14px;
-        }
-        
-        .section-header h2 {
-            font-size: 26px;
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
         }
         
         .service-card {
-            padding: 30px 20px;
+            text-align: center;
+            background: var(--white);
+            padding: 45px 35px;
+            border-radius: 15px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            cursor: pointer;
         }
         
-        .scroll-top {
-            width: 40px;
-            height: 40px;
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+            transform-origin: left;
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+        
+        .service-card:hover::after {
+            opacity: 0.05;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .service-card i {
+            font-size: 64px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .service-card:hover i {
+            transform: rotateY(360deg);
+            color: var(--primary-dark);
+        }
+        
+        .service-card h3 {
+            font-size: 26px;
+            margin-bottom: 18px;
+            color: var(--secondary);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .service-card:hover h3 {
+            color: var(--primary);
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        
+        /* Enhanced Why Choose Us */
+        .why-us {
+            padding: 100px 0;
+            background: var(--gradient-secondary);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .why-us::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+        
+        .why-us .section-header h2 {
+            color: var(--white);
+        }
+        
+        .why-us .section-header p {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .why-us-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 15px;
+            transition: var(--transition);
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+        }
+        
+        .why-us-card:hover {
+            background: rgba(255, 102, 0, 0.9);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .why-us-card i {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 25px;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .why-us-card:hover i {
+            color: var(--white);
+            transform: scale(1.2);
+        }
+        
+        .why-us-card h3 {
+            font-size: 24px;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+        
+        .why-us-card p {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+            transition: color 0.3s;
+        }
+        
+        .why-us-card:hover p {
+            color: var(--white);
+        }
+        
+        /* Enhanced Call to Action */
+        .cta {
+            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80') center/cover no-repeat fixed;
+            color: var(--white);
+            position: relative;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta h2 {
+            font-size: 48px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            animation: fadeInScale 1s ease;
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .cta p {
+            font-size: 22px;
+            max-width: 700px;
+            margin: 0 auto 35px;
+            opacity: 0.9;
+        }
+        
+        .cta .btn {
+            margin: 0 10px;
+            font-size: 18px;
+            padding: 16px 40px;
+        }
+        
+        /* Enhanced Testimonials */
+        .testimonials {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+        
+        .testimonials .section-header h2 {
+            color: var(--white);
+        }
+        
+        .testimonials .section-header p {
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
+        }
+        
+        .testimonial-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            transition: var(--transition);
+            overflow: hidden;
+        }
+        
+        .testimonial-card::before {
+            content: '\201C';
+            font-size: 120px;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            color: var(--primary);
+            opacity: 0.1;
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--gray);
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--secondary);
             font-size: 18px;
         }
-    }
-    
-    /* Animations on Scroll */
-    [data-aos] {
-        transition-duration: 800ms;
-    }
-    
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-        width: 12px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: var(--light);
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: var(--gradient);
-        border-radius: 6px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-        background: var(--primary-dark);
-    }
-    
-    /* Selection Color */
-    ::selection {
-        background: var(--primary);
-        color: var(--white);
-    }
-    
-    ::-moz-selection {
-        background: var(--primary);
-        color: var(--white);
-    }
-    
-    
-    /* --- START: ADDED CHATBOT STYLES --- */
-    .chatbot-toggler {
-        position: fixed;
-        bottom: 30px;
-        left: 30px; /* Positioned on left to avoid scroll-top button */
-        width: 60px;
-        height: 60px;
-        background: var(--primary);
-        color: var(--white);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        cursor: pointer;
-        box-shadow: 0 5px 20px rgba(255,102,0,0.3);
-        z-index: 998; /* Below scroll-top */
-        transition: var(--transition);
-    }
-    
-    .chatbot-toggler:hover {
-        transform: scale(1.1);
-        background: var(--primary-dark);
-    }
-    
-    .chatbot-container {
-        position: fixed;
-        bottom: 100px;
-        left: 30px;
-        width: 90%;
-        max-width: 420px;
-        background: var(--white);
-        border-radius: 15px;
-        box-shadow: var(--shadow-hover);
-        overflow: hidden;
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(20px) scale(0.95);
-        transition: var(--transition);
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .chatbot-container.show {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0) scale(1);
-    }
-    
-    .chatbot-header {
-        background: var(--gradient-secondary);
-        color: var(--white);
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .chatbot-header h3 {
-        font-size: 20px;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .chatbot-close-btn {
-        background: none;
-        border: none;
-        color: var(--white);
-        font-size: 20px;
-        cursor: pointer;
-        transition: transform 0.3s;
-    }
-    
-    .chatbot-close-btn:hover {
-        transform: rotate(90deg);
-    }
-    
-    .chatbot-messages {
-        list-style: none;
-        padding: 30px;
-        height: 350px; /* Fixed height for scroll */
-        overflow-y: auto;
-        flex-grow: 1;
-    }
-    
-    .chat-message {
-        margin-bottom: 20px;
-        display: flex;
-    }
-    
-    .chat-message p {
-        padding: 12px 18px;
-        border-radius: 18px;
-        font-size: 16px;
-        line-height: 1.5;
-        max-width: 80%;
-        font-family: Arial, sans-serif; /* More readable font for chat */
-    }
-    
-    .chat-message p a {
-        color: var(--primary-dark);
-        font-weight: bold;
-    }
-    
-    .chat-message.bot p {
-        background: #f0f0f0;
-        color: var(--dark);
-        border-bottom-left-radius: 0;
-    }
-    
-    .chat-message.user {
-        justify-content: flex-end;
-    }
-    
-    .chat-message.user p {
-        background: var(--primary);
-        color: var(--white);
-        border-bottom-right-radius: 0;
-    }
-    
-    .chatbot-input {
-        display: flex;
-        padding: 15px 20px;
-        border-top: 1px solid #eee;
-        background: var(--light);
-    }
-    
-    .chatbot-input input {
-        flex-grow: 1;
-        border: none;
-        background: var(--white);
-        padding: 12px 15px;
-        border-radius: 50px;
-        font-size: 16px;
-        margin-right: 10px;
-        border: 2px solid transparent;
-        transition: var(--transition);
-    }
-    
-    .chatbot-input input:focus {
-        outline: none;
-        border-color: var(--primary);
-    }
-    
-    .chatbot-input button {
-        width: 45px;
-        height: 45px;
-        border: none;
-        background: var(--gradient);
-        color: var(--white);
-        border-radius: 50%;
-        font-size: 18px;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-    
-    .chatbot-input button:hover {
-        background: var(--primary-dark);
-        transform: scale(1.1);
-    }
-    
-    /* Chatbot Responsive */
-    @media screen and (max-width: 480px) {
-        .chatbot-container {
-            left: 15px;
-            right: 15px;
-            bottom: 85px; /* Adjust for smaller screens */
-            width: auto;
-            max-width: none;
-        }
-        .chatbot-toggler {
-            left: 15px;
-            bottom: 15px;
-            width: 50px;
-            height: 50px;
+        
+        .testimonial-stars {
+            color: #ffc107;
+            margin-bottom: 20px;
             font-size: 20px;
         }
-        .chatbot-messages {
-            height: 300px;
-        }
-    }
-    /* --- END: ADDED CHATBOT STYLES --- */
-    
-</style>
-<link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css)">
-<link href="[https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap)" rel="stylesheet">
-</head> <body> <div class="loader-wrapper"> <div class="loader"></div> </div>
-
-<div class="scroll-top" onclick="scrollToTop()">
-    <i class="fas fa-arrow-up"></i>
-</div>
-
-<div class="emergency-banner">
-    <div class="container emergency-banner-content">
-        <i class="fas fa-exclamation-triangle"></i>
-        <p>PLUMBING EMERGENCY? CALL NOW!</p>
-        <a href="tel:07961356146">07961356146</a>
-    </div>
-</div>
-
-<header id="header">
-    <div class="container header-container">
-        <a href="#" class="logo">
-            <img src="images/shaun-logo.png"> Shaun's Plumbing & Drainage Logo">
-            <div class="logo-text">Shaun's <span>Plumbing</span></div>
-        </a>
-        <button class="mobile-toggle" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </button>
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#home" onclick="closeMenu()">Home</a></li>
-            <li><a href="#services" onclick="closeMenu()">Services</a></li>
-            <li><a href="#why-us" onclick="closeMenu()">Why Choose Us</a></li>
-            <li><a href="#testimonials" onclick="closeMenu()">Testimonials</a></li>
-            <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
-            <li><a href="tel:07961356146" class="btn btn-call"><i class="fas fa-phone"></i> CALL NOW!</a></li>
-        </ul>
-    </div>
-</header>
-
-<section id="home" class="hero">
-    <div class="container">
-        <h1 data-aos="fade-down">Your Local <span>Plumbing & Drainage</span> Experts</h1>
-        <p data-aos="fade-up" data-aos-delay="200">Fast, reliable service for all your plumbing and drainage needs. No job too big or small!</p>
-        <span class="hero-discount" data-aos="zoom-in" data-aos-delay="400">5% DISCOUNT FOR OAP's - CALL NOW!</span>
-        <div class="hero-buttons" data-aos="fade-up" data-aos-delay="600">
-            <a href="tel:07961356146" class="btn"><i class="fas fa-phone"></i> 07961 356 146</a>
-            <a href="#contact" class="btn btn-outline">Get a Free Quote</a>
-        </div>
-    </div>
-</section>
-
-<section id="services" class="services">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2>Our <span>Services</span></h2>
-            <p>We provide professional plumbing and drainage services for residential and commercial properties.</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card" data-aos="flip-left" data-aos-delay="100">
-                <i class="fas fa-toilet"></i>
-                <h3>Blocked Toilets</h3>
-                <p>Quick and effective solutions for blocked toilets, restoring proper function to your bathroom.</p>
-                <a href="#contact" class="btn btn-outline">Get Quote</a>
-            </div>
-            <div class="service-card" data-aos="flip-left" data-aos-delay="200">
-                <i class="fas fa-sink"></i>
-                <h3>Blocked Sinks</h3>
-                <p>Clearing blocked sinks and basins in kitchens and bathrooms to keep your water flowing smoothly.</p>
-                <a href="#contact" class="btn btn-outline">Get Quote</a>
-            </div>
-            <div class="service-card" data-aos="flip-left" data-aos-delay="300">
-                <i class="fas fa-shower"></i>
-                <h3>Shower Repairs</h3>
-                <p>Expert repairs and maintenance for all types of showers to ensure proper function and water pressure.</p>
-                <a href="#contact" class="btn btn-outline">Get Quote</a>
-            </div>
-            <div class="service-card" data-aos="flip-left" data-aos-delay="400">
-                <i class="fas fa-faucet"></i>
-                <h3>Dripping Taps</h3>
-                <p>Fix leaky and dripping taps to prevent water waste and potential damage to your property.</p>
-                <a href="#contact" class="btn btn-outline">Get Quote</a>
-            </div>
-            <div class="service-card" data-aos="flip-left" data-aos-delay="500">
-                <i class="fas fa-water"></i>
-                <h3>Leak Detection</h3>
-                <p>Advanced techniques to locate and repair hidden leaks in your plumbing system.</p>
-                <a href="#contact" class="btn btn-outline">Get Quote</a>
-            </div>
-            <div class="service-card" data-aos="flip-left" data-aos-delay="600">
-                <i class="fas fa-tools"></i>
-                <h3>General Plumbing</h3>
-                <p>Comprehensive plumbing services for all your maintenance, repair, and installation needs.</p>
-                <a href="#contact" class="btn btn-outline">Get Quote</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="why-us" class="why-us">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2>Why <span>Choose Us</span></h2>
-            <p>Our commitment to quality and customer satisfaction sets us apart from the competition.</p>
-        </div>
-        <div class="why-us-grid">
-            <div class="why-us-card" data-aos="zoom-in" data-aos-delay="100">
-                <i class="fas fa-stopwatch"></i>
-                <h3>Fast Response</h3>
-                <p>We understand the urgency of plumbing problems and aim to respond quickly to all service calls.</p>
-            </div>
-            <div class="why-us-card" data-aos="zoom-in" data-aos-delay="200">
-                <i class="fas fa-certificate"></i>
-                <h3>Professional Service</h3>
-                <p>Our friendly, experienced team provides high-quality workmanship and excellent customer service.</p>
-            </div>
-            <div class="why-us-card" data-aos="zoom-in" data-aos-delay="300">
-                <i class="fas fa-pound-sign"></i>
-                <h3>Fair Pricing</h3>
-                <p>Competitive rates with no hidden fees or surprise charges. We provide clear, upfront pricing.</p>
-            </div>
-            <div class="why-us-card" data-aos="zoom-in" data-aos-delay="400">
-                <i class="fas fa-user-tie"></i>
-                <h3>Experienced Team</h3>
-                <p>Years of experience solving complex plumbing and drainage problems for local customers.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="cta">
-    <div class="container cta-content">
-        <h2 data-aos="zoom-in">Need Emergency Plumbing Services?</h2>
-        <p data-aos="fade-up" data-aos-delay="200">Don't wait! Call us now for fast, reliable service to solve your plumbing and drainage problems.</p>
-        <div data-aos="fade-up" data-aos-delay="400">
-            <a href="tel:07961356146" class="btn">Call 07961 356 146</a>
-            <a href="#contact" class="btn btn-outline">Contact Us</a>
-        </div>
-    </div>
-</section>
-
-<section id="testimonials" class="testimonials">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2>What Our <span>Customers Say</span></h2>
-            <p>We pride ourselves on delivering excellent service and creating happy customers.</p>
-        </div>
-        <div class="testimonial-grid">
-            <div class="testimonial-card" data-aos="fade-right" data-aos-delay="100">
-                <div class="testimonial-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">Excellent service! Shaun arrived quickly and fixed our blocked toilet without any fuss. Very professional and friendly. Would definitely recommend.</p>
-                <p class="testimonial-author">- Sarah T., Harrow</p>
-            </div>
-            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="testimonial-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">Great job fixing our leaking sink. Arrived on time, explained the problem clearly, and completed the repair efficiently. Fair price too!</p>
-                <p class="testimonial-author">- James W., Northolt</p>
-            </div>
-            <div class="testimonial-card" data-aos="fade-left" data-aos-delay="300">
-                <div class="testimonial-stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="testimonial-text">I called Shaun for an emergency blocked drain. He responded quickly and sorted the problem in no time. Excellent service and very reasonable rates.</p>
-                <p class="testimonial-author">- David P., Harrow</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="contact" class="contact">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            <h2>Contact <span>Us</span></h2>
-            <p>Get in touch for all your plumbing and drainage needs. We're here to help!</p>
-        </div>
-        <div class="contact-grid">
-            <div class="contact-info" data-aos="fade-right">
-                <h3>Get In Touch</h3>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h4>Our Address</h4>
-                        <p>111 Stanley Rd, Harrow, HA2 8AY</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h4>Phone Number</h4>
-                        <a href="tel:07961356146">07961 356 146</a>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h4>Email Address</h4>
-                        <a href="mailto:info@shaunsplumbing.co.uk">info@shaunsplumbing.co.uk</a>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h4>Opening Hours</h4>
-                        <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-                        <p>Saturday: 9:00 AM - 4:00 PM</p>
-                        <p>Sunday: Emergency Call Outs Only</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-tags"></i>
-                    </div>
-                    <div class="contact-details">
-                        <h4>Special Offer</h4>
-                        <p>5% discount for OAP's - Call Now!</p>
-                    </div>
-                </div>
-            </div>
-            <div class="contact-form" data-aos="fade-left">
-                <h3>Send Us a Message</h3>
-                <form onsubmit="handleSubmit(event)">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" class="form-control" placeholder="Phone Number" required>
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control" required>
-                            <option value="" selected disabled>Select Service</option>
-                            <option value="Blocked Toilet">Blocked Toilet</option>
-                            <option value="Blocked Sink">Blocked Sink</option>
-                            <option value="Dripping Tap">Dripping Tap</option>
-                            <option value="Leak Detection">Leak Detection</option>
-                            <option value="Shower Repair">Shower Repair</option>
-                            <option value="General Plumbing">General Plumbing</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">SEND MESSAGE</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-widget" data-aos="fade-up" data-aos-delay="100">
-                <h4>About Us</h4>
-                <p>Shaun's Plumbing & Drainage is your local, professional plumbing company providing fast, reliable service for all your plumbing and drainage needs.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            <div class="footer-widget" data-aos="fade-up" data-aos-delay="200">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="#home"><i class="fas fa-angle-right"></i> Home</a></li>
-                    <li><a href="#services"><i class="fas fa-angle-right"></i> Services</a></li>
-                    <li><a href="#why-us"><i class="fas fa-angle-right"></i> Why Choose Us</a></li>
-                    <li><a href="#testimonials"><i class="fas fa-angle-right"></i> Testimonials</a></li>
-                    <li><a href="#contact"><i class="fas fa-angle-right"></i> Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-widget" data-aos="fade-up" data-aos-delay="300">
-                <h4>Our Services</h4>
-                <ul class="footer-links">
-                    <li><a href="#"><i class="fas fa-angle-right"></i> Blocked Toilets</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i> Blocked Sinks</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i> Dripping Taps</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i> Leak Detection</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i> Shower Repairs</a></li>
-                    <li><a href="#"><i class="fas fa-angle-right"></i> General Plumbing</a></li>
-                </ul>
-            </div>
-            <div class="footer-widget footer-contact" data-aos="fade-up" data-aos-delay="400">
-                <h4>Contact Info</h4>
-                <p><i class="fas fa-map-marker-alt"></i> 111 Stanley Rd, Harrow, HA2 8AY</p>
-                <p><i class="fas fa-phone"></i> 07961 356 146</p>
-                <p><i class="fas fa-envelope"></i> info@shaunsplumbing.co.uk</p>
-                <p><i class="fas fa-clock"></i> Mon-Fri: 8am-6pm, Sat: 9am-4pm</p>
-                <p><i class="fas fa-tag"></i> 5% discount for OAP's</p>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <p>&copy; 2025 Shaun's Plumbing & Drainage. All Rights Reserved. | Designed with ❤️</p>
-        </div>
-    </div>
-</footer>
-
-<div class="chatbot-toggler">
-    <i class="fas fa-comment-dots"></i>
-</div>
-<div class="chatbot-container">
-    <div class="chatbot-header">
-        <h3>Shaun's Plumbing Bot <i class="fas fa-robot"></i></h3>
-        <button class="chatbot-close-btn"><i class="fas fa-times"></i></button>
-    </div>
-    <ul class="chatbot-messages">
-        <li class="chat-message bot">
-            <p>Hi there! 👋<br>I'm Shaun's automated assistant. How can I help you today?</p>
-        </li>
-    </ul>
-    <div class="chatbot-input">
-        <input type="text" id="chatInput" placeholder="Type your question...">
-        <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
-    </div>
-</div>
-<script src="[https://unpkg.com/aos@2.3.1/dist/aos.js](https://unpkg.com/aos@2.3.1/dist/aos.js)"></script>
-
-<script>
-    // Initialize AOS
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100
-    });
-    
-    // Loader
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            document.querySelector('.loader-wrapper').classList.add('fade-out');
-        }, 500);
-    });
-    
-    // Header Scroll Effect
-    window.addEventListener('scroll', function() {
-        const header = document.getElementById('header');
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+        
+        .testimonial-stars i {
+            margin-right: 3px;
+            transition: transform 0.3s;
         }
         
-        // Scroll to Top Button
-        const scrollTop = document.querySelector('.scroll-top');
-        if (window.scrollY > 500) {
-            scrollTop.classList.add('show');
-        } else {
-            scrollTop.classList.remove('show');
+        .testimonial-card:hover .testimonial-stars i {
+            transform: scale(1.2);
         }
-    });
+        
+        .testimonial-stars i:nth-child(1) { animation-delay: 0.1s; }
+        .testimonial-stars i:nth-child(2) { animation-delay: 0.2s; }
+        .testimonial-stars i:nth-child(3) { animation-delay: 0.3s; }
+        .testimonial-stars i:nth-child(4) { animation-delay: 0.4s; }
+        .testimonial-stars i:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Enhanced Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--white);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        
+        .contact-info h3 {
+            font-size: 32px;
+            margin-bottom: 35px;
+            color: var(--secondary);
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+        
+        .contact-item {
+            display: flex;
+            margin-bottom: 30px;
+            transition: transform 0.3s;
+        }
+        
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .contact-icon {
+            color: var(--primary);
+            font-size: 28px;
+            margin-right: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,102,0,0.1);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        
+        .contact-item:hover .contact-icon {
+            background: var(--gradient);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+        
+        .contact-details h4 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--secondary);
+        }
+        
+        .contact-details p, .contact-details a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 17px;
+        }
+        
+        .contact-details a:hover {
+            color: var(--primary);
+        }
+        
+        .contact-form {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .contact-form h3 {
+            font-size: 32px;
+            margin-bottom: 35px;
+            color: var(--secondary);
+            text-transform: uppercase;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            font-size: 16px;
+            background: var(--white);
+            transition: var(--transition);
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(255,102,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        textarea.form-control {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .btn-submit {
+            background: var(--gradient);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            padding: 16px 40px;
+            font-size: 18px;
+            text-transform: uppercase;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transition: left 0.5s;
+        }
+        
+        .btn-submit:hover::before {
+            left: 100%;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,102,0,0.4);
+        }
+        
+        /* Enhanced Footer */
+        footer {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: var(--white);
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.03" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,133.3C960,128,1056,96,1152,90.7C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .footer-widget h4 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-widget h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gradient);
+        }
+        
+        .footer-widget p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 18px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 12px;
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .footer-links a:hover i {
+            transform: scale(1.2);
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 18px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .footer-contact i {
+            width: 35px;
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 18px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+            transition: var(--transition);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .footer-social a:hover {
+            background: var(--gradient);
+            border-color: transparent;
+            transform: translateY(-5px) rotate(360deg);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 25px 0;
+            background: rgba(0,0,0,0.2);
+            color: rgba(255,255,255,0.6);
+            font-size: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 20px rgba(255,102,0,0.3);
+            z-index: 999;
+        }
+        
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255,102,0,0.5);
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--white);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+                transition: right 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 20px 0;
+                text-align: center;
+            }
+            
+            .mobile-toggle {
+                display: block;
+                z-index: 1000;
+            }
+            
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            .hero p {
+                font-size: 20px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons .btn {
+                width: 250px;
+                margin-bottom: 15px;
+            }
+            
+            .section-header h2 {
+                font-size: 36px;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media screen and (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero-discount {
+                font-size: 24px;
+            }
+            
+            .section-header h2 {
+                font-size: 30px;
+            }
+            
+            .services-grid,
+            .why-us-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-widget h4::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-social {
+                justify-content: center;
+            }
+            
+            .contact-form {
+                padding: 30px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .logo-text {
+                font-size: 20px;
+            }
+            
+            .hero {
+                padding: 140px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .hero-discount {
+                font-size: 20px;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+            
+            .section-header h2 {
+                font-size: 26px;
+            }
+            
+            .service-card {
+                padding: 30px 20px;
+            }
+            
+            .scroll-top {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+        }
+        
+        /* Animations on Scroll */
+        [data-aos] {
+            transition-duration: 800ms;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Selection Color */
+        ::selection {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        ::-moz-selection {
+            background: var(--primary);
+            color: var(--white);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Emergency Banner -->
+    <div class="emergency-banner">
+        <div class="container emergency-banner-content">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>PLUMBING EMERGENCY? CALL NOW!</p>
+            <a href="tel:07961356146">07961356146</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <img src="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Shaun's Plumbing & Drainage Logo">
+                <div class="logo-text">Shaun's <span>Plumbing</span></div>
+            </a>
+            <button class="mobile-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#services" onclick="closeMenu()">Services</a></li>
+                <li><a href="#why-us" onclick="closeMenu()">Why Choose Us</a></li>
+                <li><a href="#testimonials" onclick="closeMenu()">Testimonials</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+                <li><a href="tel:07961356146" class="btn btn-call"><i class="fas fa-phone"></i> CALL NOW!</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1 data-aos="fade-down">Your Local <span>Plumbing & Drainage</span> Experts</h1>
+            <p data-aos="fade-up" data-aos-delay="200">Fast, reliable service for all your plumbing and drainage needs. No job too big or small!</p>
+            <span class="hero-discount" data-aos="zoom-in" data-aos-delay="400">5% DISCOUNT FOR OAP's - CALL NOW!</span>
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="600">
+                <a href="tel:07961356146" class="btn"><i class="fas fa-phone"></i> 07961 356 146</a>
+                <a href="#contact" class="btn btn-outline">Get a Free Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Our <span>Services</span></h2>
+                <p>We provide professional plumbing and drainage services for residential and commercial properties.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" data-aos="flip-left" data-aos-delay="100">
+                    <i class="fas fa-toilet"></i>
+                    <h3>Blocked Toilets</h3>
+                    <p>Quick and effective solutions for blocked toilets, restoring proper function to your bathroom.</p>
+                    <a href="#contact" class="btn btn-outline">Get Quote</a>
+                </div>
+                <div class="service-card" data-aos="flip-left" data-aos-delay="200">
+                    <i class="fas fa-sink"></i>
+                    <h3>Blocked Sinks</h3>
+                    <p>Clearing blocked sinks and basins in kitchens and bathrooms to keep your water flowing smoothly.</p>
+                    <a href="#contact" class="btn btn-outline">Get Quote</a>
+                </div>
+                <div class="service-card" data-aos="flip-left" data-aos-delay="300">
+                    <i class="fas fa-shower"></i>
+                    <h3>Shower Repairs</h3>
+                    <p>Expert repairs and maintenance for all types of showers to ensure proper function and water pressure.</p>
+                    <a href="#contact" class="btn btn-outline">Get Quote</a>
+                </div>
+                <div class="service-card" data-aos="flip-left" data-aos-delay="400">
+                    <i class="fas fa-faucet"></i>
+                    <h3>Dripping Taps</h3>
+                    <p>Fix leaky and dripping taps to prevent water waste and potential damage to your property.</p>
+                    <a href="#contact" class="btn btn-outline">Get Quote</a>
+                </div>
+                <div class="service-card" data-aos="flip-left" data-aos-delay="500">
+                    <i class="fas fa-water"></i>
+                    <h3>Leak Detection</h3>
+                    <p>Advanced techniques to locate and repair hidden leaks in your plumbing system.</p>
+                    <a href="#contact" class="btn btn-outline">Get Quote</a>
+                </div>
+                <div class="service-card" data-aos="flip-left" data-aos-delay="600">
+                    <i class="fas fa-tools"></i>
+                    <h3>General Plumbing</h3>
+                    <p>Comprehensive plumbing services for all your maintenance, repair, and installation needs.</p>
+                    <a href="#contact" class="btn btn-outline">Get Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="why-us" class="why-us">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Why <span>Choose Us</span></h2>
+                <p>Our commitment to quality and customer satisfaction sets us apart from the competition.</p>
+            </div>
+            <div class="why-us-grid">
+                <div class="why-us-card" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fas fa-stopwatch"></i>
+                    <h3>Fast Response</h3>
+                    <p>We understand the urgency of plumbing problems and aim to respond quickly to all service calls.</p>
+                </div>
+                <div class="why-us-card" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fas fa-certificate"></i>
+                    <h3>Professional Service</h3>
+                    <p>Our friendly, experienced team provides high-quality workmanship and excellent customer service.</p>
+                </div>
+                <div class="why-us-card" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-pound-sign"></i>
+                    <h3>Fair Pricing</h3>
+                    <p>Competitive rates with no hidden fees or surprise charges. We provide clear, upfront pricing.</p>
+                </div>
+                <div class="why-us-card" data-aos="zoom-in" data-aos-delay="400">
+                    <i class="fas fa-user-tie"></i>
+                    <h3>Experienced Team</h3>
+                    <p>Years of experience solving complex plumbing and drainage problems for local customers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container cta-content">
+            <h2 data-aos="zoom-in">Need Emergency Plumbing Services?</h2>
+            <p data-aos="fade-up" data-aos-delay="200">Don't wait! Call us now for fast, reliable service to solve your plumbing and drainage problems.</p>
+            <div data-aos="fade-up" data-aos-delay="400">
+                <a href="tel:07961356146" class="btn">Call 07961 356 146</a>
+                <a href="#contact" class="btn btn-outline">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>What Our <span>Customers Say</span></h2>
+                <p>We pride ourselves on delivering excellent service and creating happy customers.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card" data-aos="fade-right" data-aos-delay="100">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Excellent service! Shaun arrived quickly and fixed our blocked toilet without any fuss. Very professional and friendly. Would definitely recommend.</p>
+                    <p class="testimonial-author">- Sarah T., Harrow</p>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Great job fixing our leaking sink. Arrived on time, explained the problem clearly, and completed the repair efficiently. Fair price too!</p>
+                    <p class="testimonial-author">- James W., Northolt</p>
+                </div>
+                <div class="testimonial-card" data-aos="fade-left" data-aos-delay="300">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">I called Shaun for an emergency blocked drain. He responded quickly and sorted the problem in no time. Excellent service and very reasonable rates.</p>
+                    <p class="testimonial-author">- David P., Harrow</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Contact <span>Us</span></h2>
+                <p>Get in touch for all your plumbing and drainage needs. We're here to help!</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info" data-aos="fade-right">
+                    <h3>Get In Touch</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Our Address</h4>
+                            <p>111 Stanley Rd, Harrow, HA2 8AY</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone Number</h4>
+                            <a href="tel:07961356146">07961 356 146</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email Address</h4>
+                            <a href="mailto:info@shaunsplumbing.co.uk">info@shaunsplumbing.co.uk</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Opening Hours</h4>
+                            <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                            <p>Saturday: 9:00 AM - 4:00 PM</p>
+                            <p>Sunday: Emergency Call Outs Only</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Special Offer</h4>
+                            <p>5% discount for OAP's - Call Now!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form" data-aos="fade-left">
+                    <h3>Send Us a Message</h3>
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" required>
+                                <option value="" selected disabled>Select Service</option>
+                                <option value="Blocked Toilet">Blocked Toilet</option>
+                                <option value="Blocked Sink">Blocked Sink</option>
+                                <option value="Dripping Tap">Dripping Tap</option>
+                                <option value="Leak Detection">Leak Detection</option>
+                                <option value="Shower Repair">Shower Repair</option>
+                                <option value="General Plumbing">General Plumbing</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">SEND MESSAGE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-widget" data-aos="fade-up" data-aos-delay="100">
+                    <h4>About Us</h4>
+                    <p>Shaun's Plumbing & Drainage is your local, professional plumbing company providing fast, reliable service for all your plumbing and drainage needs.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-widget" data-aos="fade-up" data-aos-delay="200">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-angle-right"></i> Home</a></li>
+                        <li><a href="#services"><i class="fas fa-angle-right"></i> Services</a></li>
+                        <li><a href="#why-us"><i class="fas fa-angle-right"></i> Why Choose Us</a></li>
+                        <li><a href="#testimonials"><i class="fas fa-angle-right"></i> Testimonials</a></li>
+                        <li><a href="#contact"><i class="fas fa-angle-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-widget" data-aos="fade-up" data-aos-delay="300">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Blocked Toilets</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Blocked Sinks</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Dripping Taps</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Leak Detection</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> Shower Repairs</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> General Plumbing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-widget footer-contact" data-aos="fade-up" data-aos-delay="400">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> 111 Stanley Rd, Harrow, HA2 8AY</p>
+                    <p><i class="fas fa-phone"></i> 07961 356 146</p>
+                    <p><i class="fas fa-envelope"></i> info@shaunsplumbing.co.uk</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 8am-6pm, Sat: 9am-4pm</p>
+                    <p><i class="fas fa-tag"></i> 5% discount for OAP's</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 Shaun's Plumbing & Drainage. All Rights Reserved. | Designed with ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot HTML -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header" onclick="toggleChatbot()">
+            <div class="chatbot-header-info">
+                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt="Shaun">
+                <div>
+                    <h4>Shaun's Assistant</h4>
+                    <span class="online-status">Online</span>
+                </div>
+            </div>
+            <button class="chatbot-toggle">
+                <i class="fas fa-chevron-down" id="chatToggleIcon"></i>
+            </button>
+        </div>
+        <div class="chatbot-body" id="chatbotBody">
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message bot-message">
+                    <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=30&q=80" alt="Bot">
+                    <div class="message-content">
+                        <p>Hello! 👋 I'm Shaun's assistant. How can I help you with your plumbing needs today?</p>
+                        <span class="message-time">Just now</span>
+                    </div>
+                </div>
+            </div>
+            <div class="quick-replies" id="quickReplies">
+                <button class="quick-reply-btn" onclick="sendQuickReply('Emergency plumbing')">🚨 Emergency</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Get a quote')">💰 Get Quote</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Services')">🔧 Services</button>
+                <button class="quick-reply-btn" onclick="sendQuickReply('Contact info')">📞 Contact</button>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                <button class="chat-send-btn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Trigger Button -->
+    <div class="chatbot-trigger" onclick="openChatbot()" id="chatbotTrigger">
+        <i class="fas fa-comments"></i>
+        <span class="chat-notification">1</span>
+    </div>
+
+    <!-- Chatbot Styles -->
+    <style>
+        /* Chatbot Container */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 380px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            animation: slideUp 0.3s ease;
+            overflow: hidden;
+        }
+
+        .chatbot-container.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Chatbot Header */
+        .chatbot-header {
+            background: var(--gradient-secondary);
+            color: var(--white);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .chatbot-header-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chatbot-header-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--white);
+        }
+
+        .chatbot-header h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .online-status {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .online-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        .chatbot-toggle {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-body {
+            display: flex;
+            flex-direction: column;
+            height: 450px;
+            max-height: 450px;
+            background: #f8f9fa;
+        }
+
+        .chatbot-body.collapsed {
+            height: 0;
+            overflow: hidden;
+        }
+
+        /* Chat Messages */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .chat-message img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .message-content {
+            max-width: 70%;
+            background: var(--white);
+            padding: 12px 15px;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-message .message-content {
+            background: var(--gradient);
+            color: var(--white);
+        }
+
+        .message-content p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .message-time {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 12px 15px;
+            background: var(--white);
+            border-radius: 15px;
+            width: fit-content;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--gray);
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Quick Replies */
+        .quick-replies {
+            padding: 10px 20px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            border-top: 1px solid #e2e8f0;
+            background: var(--white);
+        }
+
+        .quick-reply-btn {
+            padding: 8px 15px;
+            background: var(--white);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quick-reply-btn:hover {
+            background: var(--gradient);
+            color: var(--white);
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        /* Chat Input */
+        .chat-input-container {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: var(--white);
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
+        }
+
+        .chat-send-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
+        }
+
+        /* Chatbot Trigger Button */
+        .chatbot-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 102, 0, 0.3);
+            transition: all 0.3s;
+            z-index: 999;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .chatbot-trigger:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(255, 102, 0, 0.4);
+        }
+
+        .chatbot-trigger.hidden {
+            display: none;
+        }
+
+        .chat-notification {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: var(--white);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive Design for Chatbot */
+        @media screen and (max-width: 480px) {
+            .chatbot-container {
+                width: 100%;
+                height: 100vh;
+                bottom: 0;
+                right: 0;
+                border-radius: 0;
+                max-height: 100vh;
+            }
+
+            .chatbot-header {
+                border-radius: 0;
+            }
+
+            .chatbot-body {
+                height: calc(100vh - 80px);
+                max-height: calc(100vh - 80px);
+            }
+
+            .chatbot-trigger {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-    // Mobile Menu Toggle
-    function toggleMenu() {
-        const navLinks = document.getElementById('navLinks');
-        navLinks.classList.toggle('active');
-    }
-    
-    function closeMenu() {
-        const navLinks = document.getElementById('navLinks');
-        navLinks.classList.remove('active');
-    }
-    
-    // Scroll to Top
-    function scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
         });
-    }
-    
-    // Form Submission
-    function handleSubmit(event) {
-        event.preventDefault();
-        alert('Thank you for your message! We will contact you shortly.');
-        event.target.reset();
-    }
-    
-    // Smooth Scroll for Navigation Links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const headerOffset = 80;
-                const elementPosition = target.offsetTop;
-                const offsetPosition = elementPosition - headerOffset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+        
+        // Loader
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.querySelector('.loader-wrapper').classList.add('fade-out');
+            }, 500);
+        });
+        
+        // Header Scroll Effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            // Scroll to Top Button
+            const scrollTop = document.querySelector('.scroll-top');
+            if (window.scrollY > 500) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
             }
         });
-    });
-    
-    // Add Animation to Service Cards on Hover
-    document.querySelectorAll('.service-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.querySelector('i').style.animation = 'pulse 0.5s';
-        });
-        card.addEventListener('mouseleave', function() {
-            this.querySelector('i').style.animation = '';
-        });
-    });
-    
-    // Dynamic Year in Footer
-    const currentYear = new Date().getFullYear();
-    document.querySelector('.footer-bottom p').innerHTML = `&copy; ${currentYear} Shaun's Plumbing & Drainage. All Rights Reserved. | Designed with ❤️`;
-    
-    
-    // --- START: ADDED CHATBOT JAVASCRIPT ---
-    const chatbotToggler = document.querySelector('.chatbot-toggler');
-    const chatbotContainer = document.querySelector('.chatbot-container');
-    const chatbotCloseBtn = document.querySelector('.chatbot-close-btn');
-    const chatInput = document.getElementById('chatInput');
-    const chatSendBtn = document.getElementById('chatSendBtn');
-    const chatMessages = document.querySelector('.chatbot-messages');
-    
-    // Toggle chatbot visibility
-    chatbotToggler.addEventListener('click', () => {
-        chatbotContainer.classList.toggle('show');
-    });
-    
-    chatbotCloseBtn.addEventListener('click', () => {
-        chatbotContainer.classList.remove('show');
-    });
-    
-    // Send message on button click
-    chatSendBtn.addEventListener('click', sendMessage);
-    
-    // Send message on 'Enter' key press
-    chatInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-    
-    function sendMessage() {
-        const userMessage = chatInput.value.trim();
-        if (!userMessage) return;
         
-        appendMessage('user', userMessage);
-        chatInput.value = '';
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+        }
+        
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Form Submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will contact you shortly.');
+            event.target.reset();
+        }
+        
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.offsetTop;
+                    const offsetPosition = elementPosition - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add Animation to Service Cards on Hover
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.querySelector('i').style.animation = 'pulse 0.5s';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('i').style.animation = '';
+            });
+        });
+        
+        // Dynamic Year in Footer
+        const currentYear = new Date().getFullYear();
+        document.querySelector('.footer-bottom p').innerHTML = `&copy; ${currentYear} Shaun's Plumbing & Drainage. All Rights Reserved. | Designed with ❤️`;
+        
+        // ============= CHATBOT FUNCTIONALITY =============
+        
+        // Chatbot responses database
+        const chatbotResponses = {
+            greetings: [
+                "Hello! How can I help you with your plumbing needs today?",
+                "Hi there! I'm here to assist you with any plumbing questions.",
+                "Welcome! How may I help you today?"
+            ],
+            emergency: [
+                "🚨 For emergency plumbing services, please call us immediately at 07961 356 146. We offer 24/7 emergency response!",
+                "If you have a plumbing emergency, don't wait! Call Shaun directly at 07961 356 146 for immediate assistance."
+            ],
+            services: [
+                "We offer a wide range of plumbing services:\n\n🚽 Blocked Toilets\n🚿 Blocked Sinks\n🚿 Shower Repairs\n🚰 Dripping Taps\n💧 Leak Detection\n🔧 General Plumbing\n\nWhich service are you interested in?",
+                "Our main services include toilet repairs, sink unblocking, shower maintenance, tap repairs, leak detection, and general plumbing. What do you need help with?"
+            ],
+            pricing: [
+                "Our pricing is competitive and transparent. We offer:\n\n✅ Free quotes\n✅ No hidden fees\n✅ 5% discount for OAPs\n✅ Fair, upfront pricing\n\nWould you like a free quote for a specific service?",
+                "We provide fair and competitive pricing with no hidden charges. Plus, we offer a special 5% discount for senior citizens! Contact us at 07961 356 146 for a free quote."
+            ],
+            contact: [
+                "You can reach us through:\n\n📞 Phone: 07961 356 146\n📧 Email: info@shaunsplumbing.co.uk\n📍 Address: 111 Stanley Rd, Harrow, HA2 8AY\n\n🕐 Hours: Mon-Fri 8am-6pm, Sat 9am-4pm",
+                "The best way to reach Shaun is by calling 07961 356 146. We're available Monday to Saturday, and for emergencies on Sunday!"
+            ],
+            blocked: [
+                "For blocked toilets, sinks, or drains, we offer fast and effective solutions. Our team uses professional equipment to clear blockages quickly. Call 07961 356 146 for immediate help!",
+                "Blockages can cause serious problems if not addressed quickly. We specialize in clearing all types of blockages. Would you like to schedule a service?"
+            ],
+            leak: [
+                "Leaks can cause significant damage if left untreated. We offer:\n\n🔍 Advanced leak detection\n🔧 Professional repairs\n💧 Water damage prevention\n\nCall us at 07961 356 146 for a quick inspection!",
+                "Found a leak? Don't wait! Even small leaks can lead to big problems. We provide fast leak detection and repair services. Contact us immediately!"
+            ],
+            appointment: [
+                "To schedule an appointment, please call us at 07961 356 146 or use the contact form on our website. We'll arrange a convenient time for you!",
+                "I'd be happy to help you book a service! Please call Shaun at 07961 356 146 to schedule your appointment. We offer flexible timing to suit your schedule."
+            ],
+            hours: [
+                "Our working hours are:\n\n📅 Monday - Friday: 8:00 AM - 6:00 PM\n📅 Saturday: 9:00 AM - 4:00 PM\n📅 Sunday: Emergency Call Outs Only\n\nFor emergencies, we're available 24/7!",
+                "We're open Mon-Fri 8am-6pm and Saturday 9am-4pm. Emergency services are available 24/7 including Sundays!"
+            ],
+            location: [
+                "We're located at 111 Stanley Rd, Harrow, HA2 8AY. We serve all areas in and around Harrow, Northolt, and surrounding regions!",
+                "Our base is in Harrow, but we cover a wide service area. We can come to you quickly, wherever you are in North West London!"
+            ],
+            thanks: [
+                "You're welcome! If you have any other questions, feel free to ask. Don't forget to call 07961 356 146 for immediate assistance!",
+                "Happy to help! Remember, we're just a phone call away at 07961 356 146."
+            ],
+            default: [
+                "I understand you need help. For the best assistance, please call Shaun directly at 07961 356 146 or describe your plumbing issue in more detail.",
+                "I'm here to help! Could you provide more details about your plumbing needs? Or call 07961 356 146 to speak with Shaun directly."
+            ]
+        };
+        
+        // Keywords mapping
+        const keywords = {
+            greetings: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening', 'greetings'],
+            emergency: ['emergency', 'urgent', 'immediately', 'asap', 'now', 'quick', 'flood', 'flooding', 'burst'],
+            services: ['services', 'what do you do', 'what can you do', 'offerings', 'help with', 'service'],
+            pricing: ['price', 'cost', 'how much', 'quote', 'estimate', 'fee', 'charge', 'expensive', 'cheap', 'discount'],
+            contact: ['contact', 'phone', 'call', 'email', 'address', 'reach', 'get in touch'],
+            blocked: ['blocked', 'clogged', 'stuck', 'blockage', 'won\'t drain', 'slow drain'],
+            leak: ['leak', 'leaking', 'dripping', 'water damage', 'wet', 'drip'],
+            appointment: ['appointment', 'book', 'schedule', 'when can you', 'availability', 'booking'],
+            hours: ['hours', 'open', 'closed', 'working hours', 'when are you', 'opening times'],
+            location: ['location', 'where', 'address', 'area', 'coverage', 'do you cover'],
+            thanks: ['thank', 'thanks', 'cheers', 'appreciate'],
+            toilet: ['toilet', 'loo', 'wc', 'bathroom'],
+            sink: ['sink', 'basin', 'kitchen sink', 'bathroom sink'],
+            shower: ['shower', 'bath', 'bathtub'],
+            tap: ['tap', 'faucet', 'mixer']
+        };
+        
+        // Chatbot state
+        let chatbotOpen = false;
+        let chatHistory = [];
+        
+        // Open chatbot
+        function openChatbot() {
+            const container = document.getElementById('chatbotContainer');
+            const trigger = document.getElementById('chatbotTrigger');
+            container.classList.add('active');
+            trigger.classList.add('hidden');
+            chatbotOpen = true;
+            
+            // Remove notification badge
+            const notification = trigger.querySelector('.chat-notification');
+            if (notification) {
+                notification.style.display = 'none';
+            }
+        }
+        
+        // Toggle chatbot (minimize/maximize)
+        function toggleChatbot() {
+            const body = document.getElementById('chatbotBody');
+            const icon = document.getElementById('chatToggleIcon');
+            
+            if (body.classList.contains('collapsed')) {
+                body.classList.remove('collapsed');
+                icon.className = 'fas fa-chevron-down';
+            } else {
+                body.classList.add('collapsed');
+                icon.className = 'fas fa-chevron-up';
+            }
+        }
+        
+        // Close chatbot
+        function closeChatbot() {
+            const container = document.getElementById('chatbotContainer');
+            const trigger = document.getElementById('chatbotTrigger');
+            container.classList.remove('active');
+            trigger.classList.remove('hidden');
+            chatbotOpen = false;
+        }
+        
+        // Process user message
+        function processMessage(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Check for specific service mentions
+            if (lowerMessage.includes('toilet') && (lowerMessage.includes('block') || lowerMessage.includes('clog'))) {
+                return "Blocked toilets are one of our specialties! We can usually clear toilet blockages within an hour of arrival. Call 07961 356 146 for immediate service. We charge a fixed rate with no hidden fees!";
+            }
+            
+            if (lowerMessage.includes('sink') && (lowerMessage.includes('block') || lowerMessage.includes('clog'))) {
+                return "Blocked sinks can be frustrating! We use professional equipment to clear sink blockages quickly and effectively. Most sink blockages are resolved within 30-45 minutes. Call 07961 356 146 to book!";
+            }
+            
+            if (lowerMessage.includes('shower') || lowerMessage.includes('bath')) {
+                return "Having shower or bath issues? We repair all types of showers including electric, mixer, and power showers. We also fix bath taps and drainage issues. Call 07961 356 146 for expert help!";
+            }
+            
+            if (lowerMessage.includes('tap') || lowerMessage.includes('faucet')) {
+                return "Dripping taps waste water and increase your bills! We can repair or replace any type of tap quickly. Most tap repairs take less than an hour. Call 07961 356 146 to stop that drip!";
+            }
+            
+            // Check for keyword categories
+            for (const [category, words] of Object.entries(keywords)) {
+                for (const word of words) {
+                    if (lowerMessage.includes(word)) {
+                        const responses = chatbotResponses[category];
+                        return responses[Math.floor(Math.random() * responses.length)];
+                    }
+                }
+            }
+            
+            // Default response
+            const responses = chatbotResponses.default;
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+        
+        // Add message to chat
+        function addMessage(message, isUser = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isUser ? 'user-message' : 'bot-message'}`;
+            
+            const currentTime = new Date().toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            
+            messageDiv.innerHTML = `
+                <img src="${isUser ? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=30&q=80' : 'https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=30&q=80'}" alt="${isUser ? 'User' : 'Bot'}">
+                <div class="message-content">
+                    <p>${message}</p>
+                    <span class="message-time">${currentTime}</span>
+                </div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
         
         // Show typing indicator
-        appendMessage('bot', '...', true);
-        
-        setTimeout(() => {
-            const botResponse = getBotResponse(userMessage);
-            updateTypingMessage(botResponse);
-        }, 1000); // Simulate bot thinking
-    }
-    
-    function appendMessage(sender, message, isTyping = false) {
-        const li = document.createElement('li');
-        li.classList.add('chat-message', sender);
-        if (isTyping) {
-            li.classList.add('typing');
-        }
-        li.innerHTML = `<p>${message}</p>`;
-        chatMessages.appendChild(li);
-        chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll
-    }
-
-    function updateTypingMessage(newMessage) {
-        const typingMessage = chatMessages.querySelector('.typing');
-        if (typingMessage) {
-            typingMessage.querySelector('p').innerHTML = newMessage;
-            typingMessage.classList.remove('typing');
-        }
-    }
-    
-    // Simple bot response logic
-    function getBotResponse(userInput) {
-        const lcInput = userInput.toLowerCase();
-        
-        if (lcInput.includes('hello') || lcInput.includes('hi')) {
-            return "Hello! How can I assist you with your plumbing needs today?";
-        }
-        if (lcInput.includes('service') || lcInput.includes('offer')) {
-            return "We offer a wide range of services including: <strong>Blocked Toilets, Blocked Sinks, Shower Repairs, Dripping Taps, Leak Detection, and General Plumbing</strong>. How can I help with one of these?";
-        }
-        if (lcInput.includes('hours') || lcInput.includes('open')) {
-            return "Our opening hours are: <br><strong>Monday - Friday:</strong> 8:00 AM - 6:00 PM <br><strong>Saturday:</strong> 9:00 AM - 4:00 PM <br>We offer <strong>Emergency Call Outs Only</strong> on Sundays.";
-        }
-        if (lcInput.includes('phone') || lcInput.includes('number') || lcInput.includes('call')) {
-            return "You can reach us for emergencies or quotes at <a href='tel:07961356146'>07961 356 146</a>.";
-        }
-        if (lcInput.includes('address') || lcInput.includes('location')) {
-            return "Our address is <strong>111 Stanley Rd, Harrow, HA2 8AY</strong>.";
-        }
-        if (lcInput.includes('discount') || lcInput.includes('oap')) {
-            return "Yes! We offer a <strong>5% discount for OAP's</strong>. Please mention this when you call.";
-        }
-        if (lcInput.includes('quote') || lcInput.includes('price')) {
-            return "For a free, no-obligation quote, please call us at <a href='tel:07961356146'>07961 356 146</a> or fill out the contact form on our website.";
-        }
-        if (lcInput.includes('emergency')) {
-            return "For all emergencies, please <strong>CALL US IMMEDIATELY</strong> at <a href='tel:07961356146'>07961 356 146</a>. We offer a fast response service.";
-        }
-         if (lcInput.includes('bye') || lcInput.includes('thanks')) {
-            return "You're welcome! Have a great day.";
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message bot-message';
+            typingDiv.id = 'typingIndicator';
+            
+            typingDiv.innerHTML = `
+                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=30&q=80" alt="Bot">
+                <div class="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            `;
+            
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
-        return "I'm sorry, I'm just a simple bot. I'm not sure how to answer that. For a detailed query, please call us at <a href='tel:07961356146'>07961 356 146</a>.";
-    }
-    // --- END: ADDED CHATBOT JAVASCRIPT ---
-</script>
-</body> </html>
+        // Remove typing indicator
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+        
+        // Send message
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message === '') return;
+            
+            // Add user message
+            addMessage(message, true);
+            
+            // Clear input
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Simulate bot response delay
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = processMessage(message);
+                addMessage(response);
+                
+                // Add to chat history
+                chatHistory.push({ user: message, bot: response });
+            }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+        }
+        
+        // Send quick reply
+        function sendQuickReply(reply) {
+            const input = document.getElementById('chatInput');
+            input.value = reply;
+            sendMessage();
+        }
+        
+        // Handle enter key
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+        
+        // Initialize chatbot after page load
+        window.addEventListener('load', function() {
+            // Show chatbot trigger after 3 seconds
+            setTimeout(() => {
+                const trigger = document.getElementById('chatbotTrigger');
+                trigger.style.display = 'flex';
+            }, 3000);
+            
+            // Automatically open chatbot after 10 seconds (optional)
+            setTimeout(() => {
+                if (!chatbotOpen) {
+                    // You can uncomment this to auto-open
+                    // openChatbot();
+                }
+            }, 10000);
+        });
+        
+        // Close chatbot when clicking outside (optional)
+        document.addEventListener('click', function(event) {
+            const container = document.getElementById('chatbotContainer');
+            const trigger = document.getElementById('chatbotTrigger');
+            
+            if (!container.contains(event.target) && !trigger.contains(event.target) && chatbotOpen) {
+                // You can uncomment this to close when clicking outside
+                // closeChatbot();
+            }
+        });
+    </script>
+</body>
+</html>
